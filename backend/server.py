@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify, Response # Import Flask for creating 
 from fer import FER  # Import FER for emotion detection
 import cv2  # OpenCV for image and video processing
 import numpy as np  # NumPy for handling image arrays
-import moviepy.editor as mp
+
 
 app = Flask(__name__)
 detector = FER()  # Initialize the FER emotion detector
