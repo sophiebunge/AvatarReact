@@ -1,72 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useRef } from 'react';
+import Webcam from 'react-webcam';
 
-function EmotionCapture() {
-  const [emotion, setEmotion] = useState('');
-  const [score, setScore] = useState(0);
-  const [videoStream, setVideoStream] = useState(null);
+const EmotionCapture = ({ sendEmotion }) => {
+  const [emotion, setEmotion] = useState('Detecting...');
+  const webcamRef = useRef(null);
 
-  useEffect(() => {
-    // Get available media devices and select the camera
-    const getCamera = async () => {
-      try {
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const videoDevices = devices.filter(device => device.kind === 'videoinput');
+  const captureAndSendImage = async () => {
+    const imageSrc = webcamRef.current.getScreenshot();  // Capture webcam image
+    sendEmotion(imageSrc);  // Pass the captured image to the parent component
+  };
 
-        // Find the first video device that's not a mobile camera (you may want to refine this logic)
-        const laptopCamera = videoDevices.find(device => !device.deviceId.includes('mobile'));
-        if (laptopCamera) {
-          // Request the stream from the selected camera
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: { deviceId: laptopCamera.deviceId }
-          });
+  // Set interval for continuous image capture
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      captureAndSendImage();
+    }, 100);  // 10 FPS
 
-          // Set the video stream to display the video feed
-          setVideoStream(stream);
-        } else {
-          console.log('No camera found!');
-        }
-      } catch (error) {
-        console.error('Error accessing camera:', error);
-      }
-    };
-
-    getCamera();
-
-    // Call Flask server to stream video
-    const interval = setInterval(async () => {
-      try {
-        // Fetch emotion data from the server or process video frame
-        const response = await axios.get('http://localhost:3000/video_feed', { responseType: 'arraybuffer' });
-
-        // Assuming the server sends emotion data in the response
-        const frameData = new Uint8Array(response.data); // Convert arraybuffer to Uint8Array
-        const emotionData = JSON.parse(new TextDecoder().decode(frameData)); // Decode and parse JSON
-
-        // Set emotion based on the backend response
-        setEmotion(emotionData.emotion);
-        setScore(emotionData.score);
-      } catch (error) {
-        console.error('Error fetching emotion data', error);
-      }
-    }, 1000); // Adjust the interval as needed
-
-    return () => {
-      if (videoStream) {
-        // Cleanup: stop video stream when component unmounts
-        videoStream.getTracks().forEach(track => track.stop());
-      }
-      clearInterval(interval); // Cleanup interval on component unmount
-    };
-  }, [videoStream]);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
-      <h1>Emotion: {emotion}</h1>
-      <h2>Score: {score}</h2>
-      {videoStream && <video autoPlay muted playsInline ref={(video) => video && (video.srcObject = videoStream)} />}
+      <h1>Real-Time Emotion Recognition</h1>
+      <Webcam
+        audio={false}
+        screenshotFormat="image/jpeg"
+        width="100%"
+        videoConstraints={{
+          facingMode: 'user',
+        }}
+        ref={webcamRef}
+      />
+      <h3>Recognized Emotion: {emotion}</h3> {/* Display recognized emotion */}
     </div>
   );
-}
+};
 
 export default EmotionCapture;
