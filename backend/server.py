@@ -1,12 +1,13 @@
 import os
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/usr/bin/ffmpeg"
-from flask import Flask, request, jsonify, Response # Import Flask for creating API endpoints
+from flask import Flask, request, jsonify, Response  # Import Flask for creating API endpoints
 from fer import FER  # Import FER for emotion detection
 import cv2  # OpenCV for image and video processing
 import numpy as np  # NumPy for handling image arrays
-
+from flask_cors import CORS  # Import CORS for enabling Cross-Origin Resource Sharing
 
 app = Flask(__name__)
+CORS(app)  # Enable CORS for all routes (if you want to restrict, modify the CORS setup)
 detector = FER()  # Initialize the FER emotion detector
 
 # Load OpenCV's pre-trained face detection model (Haar Cascade)
@@ -37,6 +38,7 @@ def upload_image():
     # Return the detected emotion and confidence score as JSON
     return jsonify({'emotion': emotion, 'score': score})
 
+# API to stream video frames and detect emotions
 @app.route('/video_feed')
 def video_feed():
     def generate_frames():
