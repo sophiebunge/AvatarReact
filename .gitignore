@@ -8,7 +8,6 @@ __pycache__/
 .venv 2/
 venv 2/
 
-
 # System files
 .DS_Store
 
