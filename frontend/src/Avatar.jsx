@@ -7,10 +7,11 @@ const Avatar = ({ url }) => {
 
   const { scene } = useGLTF(url);
 
+  // Adjust Avatar Position
   useEffect(() => {
     if (avatarRef.current) {
-      avatarRef.current.scale.set(1.5, 1.5, 1.5); // Adjust scale for half-body
-      avatarRef.current.position.set(0, -0.7, 0); // Move it slightly up
+      avatarRef.current.scale.set(1.5, 1.5, 1.5); 
+      avatarRef.current.position.set(0, -0.7, 0); 
     }
   }, []);
   

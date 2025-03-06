@@ -31,10 +31,14 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <Webcam audio={false} ref={webcamRef} screenshotFormat="image/jpeg" />
-      <h1>Emotion: {emotion}</h1>
-      <AvatarViewer avatarUrl={avatarURL} />
+    <div className="container">
+      <div className="avatar">
+        <AvatarViewer avatarUrl={avatarURL} />
+      </div>
+      <div className="webcam-container">
+        <Webcam ref={webcamRef} />
+        <h2>Emotion: {emotion}</h2>
+      </div>
     </div>
   );
 };

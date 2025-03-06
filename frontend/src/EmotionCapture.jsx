@@ -31,7 +31,6 @@ const EmotionCapture = ({ sendEmotion }) => {
         }}
         ref={webcamRef}
       />
-      <h3>Recognized Emotion: {emotion}</h3> {/* Display recognized emotion */}
     </div>
   );
 };
