@@ -16,6 +16,7 @@
     "axios": "^0.27.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-webcam": "^7.2.0",
     "three": "^0.174.0"
   },
   "devDependencies": {

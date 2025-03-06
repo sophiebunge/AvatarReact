@@ -6,7 +6,8 @@ import AvatarViewer from './Avatar';
 const App = () => {
   const [emotion, setEmotion] = useState('Detecting...');
   const webcamRef = useRef(null);
-  const avatarURL = 'https://models.readyplayer.me/64a12345.glb'; // Replace with your Ready Player Me GLB URL
+  const avatarURL = "https://models.readyplayer.me/67c73d86bf28c8a21e42e31a.glb?bodyType=halfbody";
+  // Replace
 
   const captureAndSendImage = async () => {
     const imageSrc = webcamRef.current.getScreenshot();
