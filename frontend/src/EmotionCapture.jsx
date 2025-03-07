@@ -6,11 +6,11 @@ const EmotionCapture = ({ sendEmotion }) => {
   const webcamRef = useRef(null);
 
   const captureAndSendImage = async () => {
-    const imageSrc = webcamRef.current.getScreenshot();  // Capture webcam image
-    sendEmotion(imageSrc);  // Pass the captured image to the parent component
+    const imageSrc = webcamRef.current.getScreenshot();  // Capture image from cam
+    sendEmotion(imageSrc);  // pass captured image to parent component
   };
 
-  // Set interval for continuous image capture
+  // Set pace of image capture
   React.useEffect(() => {
     const interval = setInterval(() => {
       captureAndSendImage();

@@ -1,31 +1,52 @@
 import React, { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
+import { emotionMapping } from './emotionMapping';
 
-const Avatar = ({ url }) => {
+const Avatar = ({ url, currentEmotion }) => {
   const avatarRef = useRef();
-
   const { scene } = useGLTF(url);
 
-  // Adjust Avatar Position
   useEffect(() => {
+    // Access the morph target influences and dictionary
+    scene.traverse((child) => {
+      if (child.isMesh && child.morphTargetDictionary) {
+        const morphDict = child.morphTargetDictionary;
+        const morphInfluences = child.morphTargetInfluences;
+
+        // Reset all morph targets
+        Object.keys(morphDict).forEach((key) => {
+          morphInfluences[morphDict[key]] = 0;
+        });
+
+        // Apply the emotion morph target influences
+        if (emotionMapping[currentEmotion]) {
+          Object.keys(emotionMapping[currentEmotion]).forEach((key) => {
+            const targetIndex = morphDict[key];
+            if (targetIndex !== undefined) {
+              morphInfluences[targetIndex] = emotionMapping[currentEmotion][key];
+            }
+          });
+        }
+      }
+    });
+    
+    // Set avatar position here
     if (avatarRef.current) {
-      avatarRef.current.scale.set(1.5, 1.5, 1.5); 
-      avatarRef.current.position.set(0, -0.7, 0); 
+      avatarRef.current.position.set(0, -1.6, 0); // Adjust position to desired location
     }
-  }, []);
-  
+
+  }, [currentEmotion, scene]);
 
   return <primitive ref={avatarRef} object={scene} />;
 };
 
-const AvatarViewer = ({ avatarUrl }) => {
+const AvatarViewer = ({ avatarUrl, currentEmotion }) => {
   return (
-    <Canvas camera={{ position: [0, 1, 3] }}>
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[2, 2, 2]} intensity={1} />
-      <Avatar url={avatarUrl} />
-      <OrbitControls />
+    <Canvas camera={{ fov: 17, near: 0.1, far: 10, position: [-1, 0, 2] }}>
+      <ambientLight intensity={1} />
+      <directionalLight position={[0, 1.5, 2]} intensity={1} />
+      <Avatar url={avatarUrl} currentEmotion={currentEmotion} />
     </Canvas>
   );
 };

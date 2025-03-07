@@ -23,6 +23,7 @@ a:hover {
 }
 
 body {
+  position: relative;
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
@@ -69,20 +70,26 @@ button:focus-visible {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100vh; 
+  height: 100vh;
   padding: 20px;
 }
 
 .avatar {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  height: 100vh; 
-
+  position: bottom;
+  align-items: bottom;
+  left: 5%; /* Move the avatar a bit to the left */
+  bottom: 5%; /* Adjust top positioning */
+  width: 600px; /* Make the avatar bigger */
+  height: 800px; /* Adjust height to show from shoulders to head */
+  border-radius: 5%;
+  object-fit: cover; /* Ensure the avatar maintains aspect ratio */
 }
 
 .webcam-container {
   display: flex;
   flex-direction: column;
-  align-items: right;
+  align-items: flex-end;
+  position: absolute;
+  right: 0; /* Place the webcam on the right side */
+  top: 10%; /* Optional: Adjust top positioning to avoid overlap */
 }
