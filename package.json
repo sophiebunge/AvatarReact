@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "react-webcam": "^7.2.0"
+    "react-webcam": "^7.2.0",
+    "vite": "^6.2.1"
   }
 }
