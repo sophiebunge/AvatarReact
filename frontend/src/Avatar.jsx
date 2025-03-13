@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { useGLTF } from '@react-three/drei';
-import { emotionMapping } from './emotionMapping';
+import React, { useEffect, useRef } from "react";
+import { Canvas } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
+import { emotionMapping } from "./emotionMapping";
 
 const Avatar = ({ url, currentEmotion }) => {
   const avatarRef = useRef();
@@ -24,18 +24,18 @@ const Avatar = ({ url, currentEmotion }) => {
           Object.keys(emotionMapping[currentEmotion]).forEach((key) => {
             const targetIndex = morphDict[key];
             if (targetIndex !== undefined) {
-              morphInfluences[targetIndex] = emotionMapping[currentEmotion][key];
+              morphInfluences[targetIndex] =
+                emotionMapping[currentEmotion][key];
             }
           });
         }
       }
     });
-    
-    // Set avatar position here
-    if (avatarRef.current) {
-      avatarRef.current.position.set(0, -1.6, 0); // Adjust position to desired location
-    }
 
+    // Set avatar position
+    if (avatarRef.current) {
+      avatarRef.current.position.set(0, -1.6, 0);
+    }
   }, [currentEmotion, scene]);
 
   return <primitive ref={avatarRef} object={scene} />;
