@@ -130,15 +130,26 @@ button:focus-visible {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: left;
+  display: flex;
+  flex-direction: column;
+
 }
 
 .test-image {
-  width: auto;
-  height: 500px; 
-  
+  width: 600px;
+  height: 200px; 
+
 }
 
 .test-title {
   margin: 40px 0; 
   font-size: 24px; 
+}
+
+.next-button {
+  margin-top: 50px;
+  padding: 8px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: flex-end
 }

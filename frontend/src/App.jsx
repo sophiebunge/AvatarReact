@@ -3,18 +3,13 @@ import Webcam from 'react-webcam';
 import axios from 'axios';
 import AvatarViewer from './Avatar';
 import './index.css';
+import images from './ImageArray';
 
 const App = () => {
   const [emotion, setEmotion] = useState('happy');  
   const webcamRef = useRef(null);
   const avatarURL = "https://models.readyplayer.me/67c73d86bf28c8a21e42e31a.glb?bodyType=halfbody";
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-
-  const images = [
-    '/img/disgust.png',
-    '/img/disgust2.png',
-  ];
 
   const captureAndSendImage = async () => {
     const imageSrc = webcamRef.current.getScreenshot();
@@ -50,8 +45,8 @@ const App = () => {
         <AvatarViewer avatarUrl={avatarURL} currentEmotion={emotion} />
       </div>
       <div className="test-container">
-        <h1 className="center-title">Your Title Here</h1>
-        <img src={images[currentImageIndex]} alt="pictures for the test" className="center-image" />
+        <h1 className="test-title">Your Title Here</h1>
+        <img src={images[currentImageIndex]} className="test-image" />
         <button className="next-button" onClick={handleNextClick}>Next</button>
       </div>
     </div>

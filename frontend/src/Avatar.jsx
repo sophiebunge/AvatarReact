@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { useGLTF } from '@react-three/drei';
 import { emotionMapping } from './emotionMapping';
 
 const Avatar = ({ url, currentEmotion }) => {
@@ -45,7 +45,7 @@ const AvatarViewer = ({ avatarUrl, currentEmotion }) => {
   return (
     <Canvas camera={{ fov: 17, near: 0.1, far: 10, position: [-1, 0, 2] }}>
       <ambientLight intensity={1} />
-      <directionalLight position={[0, 1.5, 2]} intensity={1} />
+      <directionalLight position={[0, 1.5, 2]} intensity={2.5} />
       <Avatar url={avatarUrl} currentEmotion={currentEmotion} />
     </Canvas>
   );
