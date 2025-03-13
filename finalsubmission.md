@@ -31,6 +31,8 @@ The results are the MVP I was aiming for and that it works is still a surpise fo
 
 Would be to come up with a good experiment setup which can actually be tested by users and see if they are influenced by the avatars reactions.
 
-## 2. Project Details:
+## 2. Project Documentation:
+
+Download the project diray here:
 
 ![System Diagram](./img/system_diagram.png)

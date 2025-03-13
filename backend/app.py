@@ -6,7 +6,7 @@ import numpy as np
 import base64
 
 app = Flask(__name__)
-CORS(app, origins="https://avatarreact-pi.vercel.app") 
+CORS(app) 
 detector = FER()
 
 @app.route('/emotion', methods=['POST'])
@@ -24,4 +24,4 @@ def detect_emotion():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000)
+    app.run(host='0.0.0.0', port=10000)
