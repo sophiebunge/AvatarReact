@@ -45,7 +45,7 @@ const App = () => {
         <AvatarViewer avatarUrl={avatarURL} currentEmotion={emotion} />
       </div>
       <div className="test-container">
-        <h1 className="test-title">Your Title Here</h1>
+        <h1 className="test-title">Can You Mirror This Emotion?</h1>
         <img src={images[currentImageIndex]} className="test-image" />
         <button className="next-button" onClick={handleNextClick}>Next</button>
       </div>

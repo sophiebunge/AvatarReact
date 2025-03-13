@@ -25,3 +25,4 @@ build/
 # Other unwanted files
 *.log
 *.db
+.vercel
