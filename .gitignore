@@ -17,10 +17,7 @@ venv/
 nosetests.xml
 test-results/
 
-# Distribution / packaging
-*.egg-info/
-dist/
-build/
+
 
 # Other unwanted files
 *.log
