@@ -7,5 +7,6 @@ export default defineConfig({
   server: {
     host: '0.0.0.0', // Bind to all interfaces
     port: process.env.PORT || 5173, // Use the port provided by Render or fallback to 5173
+    allowedHosts: ['avatarreact-2.onrender.com'], // Allow your deployed host
   },
 })
