@@ -4,6 +4,7 @@ from fer import FER
 import cv2
 import numpy as np
 import base64
+import os
 
 app = Flask(__name__)
 CORS(app) 
@@ -24,4 +25,5 @@ def detect_emotion():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)

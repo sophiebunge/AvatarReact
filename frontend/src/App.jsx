@@ -15,7 +15,7 @@ const App = () => {
   const captureAndSendImage = async () => {
     const imageSrc = webcamRef.current.getScreenshot();
     try {
-      const response = await axios.post("https://avatarreact.onrender.com", {
+      const response = await axios.post("http://localhost:3000/emotion", {
         image: imageSrc,
       });
       if (response.data.emotion) {
