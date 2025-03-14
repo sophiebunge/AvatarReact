@@ -13,16 +13,23 @@ const App = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const captureAndSendImage = async () => {
+    if (!webcamRef.current) return;
+
     const imageSrc = webcamRef.current.getScreenshot();
+    if (!imageSrc) return;
+
     try {
-      const response = await axios.post("https://avatarreact.onrender.com", {
-        image: imageSrc,
-      });
+      const response = await axios.post(
+        "https://avatarreact.onrender.com/emotion", // Ensure this matches the backend
+        { image: imageSrc },
+        { headers: { "Content-Type": "application/json" } }
+      );
+
       if (response.data.emotion) {
         setEmotion(response.data.emotion);
       }
     } catch (error) {
-      console.error("Error: sending image to backend", error);
+      console.error("Error sending image to backend:", error);
     }
   };
 
@@ -38,7 +45,7 @@ const App = () => {
   return (
     <div className="app-container">
       <div className="webcam-container">
-        <Webcam ref={webcamRef} />
+        <Webcam ref={webcamRef} screenshotFormat="image/jpeg" />
         <h3>Emotion: {emotion}</h3>
       </div>
       <div className="avatar">
@@ -46,7 +53,11 @@ const App = () => {
       </div>
       <div className="test-container">
         <h1 className="test-title">Can You Mirror This Emotion?</h1>
-        <img src={images[currentImageIndex]} className="test-image" />
+        <img
+          src={images[currentImageIndex]}
+          className="test-image"
+          alt="Emotion challenge"
+        />
         <button className="next-button" onClick={handleNextClick}>
           Next
         </button>

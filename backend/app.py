@@ -7,7 +7,10 @@ import base64
 import os
 
 app = Flask(__name__)
-CORS(app) 
+
+# Allow CORS only for your frontend
+CORS(app, resources={r"/emotion": {"origins": "https://avatarreact-2.onrender.com"}})
+
 detector = FER()
 
 @app.route('/emotion', methods=['POST'])
